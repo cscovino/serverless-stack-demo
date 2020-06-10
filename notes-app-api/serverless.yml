@@ -8,6 +8,7 @@ plugins:
   - serverless-bundle # Package our functions with Webpack
   - serverless-offline
   - serverless-dotenv-plugin # Load .env as environment variables
+  - serverless-aws-documentation
 
 provider:
   name: aws
@@ -35,6 +36,121 @@ provider:
         - dynamodb:DeleteItem
       Resource: "arn:aws:dynamodb:us-east-2:506606057167:table/notes"
 
+custom:
+  # You must have the documentation object
+  documentation:
+    # This is the general info about the API
+    api:
+      info:
+        version: '1.0.1'
+        title: API for notes app
+        description: API REST for notes app
+        contact:
+          name: Carlos Scovino
+          email: kikescovino@gmail.com
+    models:
+      -
+        name: "BodyResponse"
+        description: "Body Response"
+        contentType: "application/json"
+        schema:
+          type: "object"
+          properties:
+            content:
+              type: string
+              description: "Content of the note"
+            attachment:
+              type: string
+              description: "URL file attached to the note"
+      -
+        name: "CreateRequest"
+        description: "Create Body Request"
+        contentType: "application/json"
+        schema:
+          type: "object"
+          properties:
+            content:
+              type: string
+              description: "Content of the note"
+            attachment:
+              type: string
+              description: "File attached to the note"
+          required:
+            - content
+      -
+        name: "BillingRequest"
+        description: "Billing Body Request"
+        contentType: "application/json"
+        schema:
+          type: "object"
+          properties:
+            source:
+              type: number
+              description: "Credit card number"
+            storage:
+              type: number
+              description: "Number of notes"
+          required:
+            - source
+            - storage
+      -
+        name: "400Response"
+        description: "Error response"
+        contentType: "application/json"
+        schema:
+          type: "object"
+          required:
+            - body
+            - statusCode
+          properties:
+            body:
+              type: string
+              description: "Error message"
+            statusCode:
+              type: number
+              description: "Error code"
+      -
+        name: "200Response"
+        description: "Request response"
+        contentType: "application/json"
+        schema:
+          type: "object"
+          required:
+            - body
+            - statusCode
+          properties:
+            body:
+              type: object
+              description: "Note created"
+              properties:
+                content:
+                  type: string
+                  description: "Content of the note"
+                attachment:
+                  type: string
+                  description: "URL file attached to the note"
+            statusCode:
+              type: number
+              description: "OK code"
+      -
+        name: "200ResponseList"
+        description: "Request response"
+        contentType: "application/json"
+        schema:
+          type: "object"
+          required:
+            - body
+            - statusCode
+          properties:
+            body:
+              type: array
+              description: "Notes created"
+              items:
+                $ref: "{{model: BodyResponse}}"
+            statusCode:
+              type: number
+              description: "OK code"
+
 functions:
   # Defines an HTTP API endpoint that calls the main function in create.js
   # - path: url path is /notes
@@ -50,6 +166,19 @@ functions:
           method: post
           cors: true
           authorizer: aws_iam
+          documentation:
+            summary: Creates a new note
+            requestModels:
+              "application/json": CreateRequest
+            methodResponses:
+              -
+                statusCode: "200"
+                responseModels:
+                  "application/json": "200Response"
+              -
+                statusCode: "400"
+                responseModels:
+                  "application/json": "400Response"
 
   get:
     # Defines an HTTP API endpoint that calls the main function in get.js
@@ -62,6 +191,22 @@ functions:
           method: get
           cors: true
           authorizer: aws_iam
+          documentation:
+            summary: Gets a notes
+            pathParams:
+              -
+                name: "id"
+                description: "ID of the note"
+                required: true
+            methodResponses:
+              -
+                statusCode: "200"
+                responseModels:
+                  "application/json": "200Response"
+              -
+                statusCode: "400"
+                responseModels:
+                  "application/json": "400Response"
 
   list:
     # Defines an HTTP API endpoint that calls the main function in list.js
@@ -74,6 +219,17 @@ functions:
           method: get
           cors: true
           authorizer: aws_iam
+          documentation:
+            summary: Gets all your notes
+            methodResponses:
+              -
+                statusCode: "200"
+                responseModels:
+                  "application/json": "200ResponseList"
+              -
+                statusCode: "400"
+                responseModels:
+                  "application/json": "400Response"
 
   update:
     # Defines an HTTP API endpoint that calls the main function in update.js
@@ -86,6 +242,24 @@ functions:
           method: put
           cors: true
           authorizer: aws_iam
+          documentation:
+            summary: Updates a note
+            pathParams:
+              -
+                name: "id"
+                description: "ID of the note"
+                required: true
+            requestModels:
+              "application/json": CreateRequest
+            methodResponses:
+              -
+                statusCode: "200"
+                responseModels:
+                  "application/json": "200Response"
+              -
+                statusCode: "400"
+                responseModels:
+                  "application/json": "400Response"
 
   delete:
     # Defines an HTTP API endpoint that calls the main function in delete.js
@@ -98,6 +272,22 @@ functions:
           method: delete
           cors: true
           authorizer: aws_iam
+          documentation:
+            summary: Deletes a note
+            pathParams:
+              -
+                name: "id"
+                description: "ID of the note"
+                required: true
+            methodResponses:
+              -
+                statusCode: "200"
+                responseModels:
+                  "application/json": "200Response"
+              -
+                statusCode: "400"
+                responseModels:
+                  "application/json": "400Response"
 
   billing:
     # Defines an HTTP API endpoint that calls the main function in billing.js
@@ -110,6 +300,19 @@ functions:
           method: post
           cors: true
           authorizer: aws_iam
+          documentation:
+            summary: Creates a new note
+            requestModels:
+              "application/json": BillingRequest
+            methodResponses:
+              -
+                statusCode: "200"
+                responseModels:
+                  "application/json": "200Response"
+              -
+                statusCode: "400"
+                responseModels:
+                  "application/json": "400Response"
 
 # Create our resources with separate CloudFormation templates
 resources:
