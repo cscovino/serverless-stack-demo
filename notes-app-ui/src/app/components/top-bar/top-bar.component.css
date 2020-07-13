@@ -1,0 +1,26 @@
+.home-link{
+    text-decoration: none;
+    color: black;
+}
+
+.right-nav{
+    width: 50vw;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.left-nav{
+    width: 50vw;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+mat-toolbar{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

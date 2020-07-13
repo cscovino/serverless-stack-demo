@@ -1,0 +1,21 @@
+<div class="login-container">
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
+        <mat-form-field class="input-text" appearance="outline">
+            <mat-label>Usuario/Email</mat-label>
+            <input id="emailInput" matInput type="text" formControlName="username">
+        </mat-form-field>
+        <mat-form-field class="input-text" appearance="outline">
+            <mat-label>Contraseña</mat-label>
+            <input id="passwordInput" matInput type="password" formControlName="password">
+        </mat-form-field>
+        <button 
+            [disabled]="loginForm.get('username').invalid || loginForm.get('password').invalid" 
+            mat-raised-button 
+            color="basic" 
+            type="submit"
+            id="loginButton"
+        >
+            Enviar
+        </button>
+    </form>
+</div>

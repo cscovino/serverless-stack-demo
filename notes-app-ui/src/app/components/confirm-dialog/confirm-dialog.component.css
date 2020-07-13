@@ -1,0 +1,12 @@
+.dialog-container {
+    padding: 1rem;
+}
+
+.content {
+    margin-bottom: 2rem;
+}
+
+.actions {
+    margin-top: 0.5rem;
+    justify-content: end;
+}

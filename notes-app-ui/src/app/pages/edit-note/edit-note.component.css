@@ -1,0 +1,22 @@
+.edit-note {
+    margin: 2rem;
+}
+
+.edit-note .note-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.textarea-input {
+    width: 50vw;
+}
+
+.file-input {
+    width: 50vw;
+}
+
+.input-text {
+    width: 50vw;
+}

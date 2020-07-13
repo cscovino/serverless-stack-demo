@@ -1,0 +1,36 @@
+<div class="note-container">
+  <mat-card *ngIf="note">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>library_books</mat-icon>
+        <mat-card-title>{{note.title}}</mat-card-title>
+      </mat-card-header>
+      <img *ngIf="note.attachmentURL" class="image-card" height="300px" mat-card-image src={{note.attachmentURL}} alt={{note.title}}/>
+      <mat-card-content>
+        <p>{{note.content}}</p>
+      </mat-card-content>
+  </mat-card>
+
+  <div class="actions-buttons">
+    <button #tooltip="matTooltip" 
+      matTooltip="Edit note" 
+      matTooltipPosition="above"
+      mat-fab color="basic" 
+      class="edit-button"
+      *ngIf="note"
+      routerLink="/edit/{{note.noteId}}"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
+
+    <button #tooltip2="matTooltip" 
+      matTooltip="Delete note" 
+      matTooltipPosition="above"
+      mat-fab color="basic"
+      *ngIf="note"
+      (click)="deleteNote()"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
+
+  </div>

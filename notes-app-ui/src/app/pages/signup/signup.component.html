@@ -1,0 +1,38 @@
+<div class="signup-container">
+    <form *ngIf="!isUserSignUp" class="signup-form" [formGroup]="signupForm" (ngSubmit)="handleSubmit()">
+        <mat-form-field class="input-text" appearance="outline">
+            <mat-label>User/Email</mat-label>
+            <input matInput type="text" formControlName="username">
+        </mat-form-field>
+        <mat-form-field class="input-text" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" formControlName="password">
+        </mat-form-field>
+        <mat-form-field class="input-text" appearance="outline">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput type="password" formControlName="secondpassword">
+        </mat-form-field>
+        <button 
+            [disabled]="signupForm.get('username').invalid || signupForm.get('password').invalid" 
+            mat-raised-button 
+            color="basic" 
+            type="submit"
+        >
+            Enviar
+        </button>
+    </form>
+    <form *ngIf="isUserSignUp" class="signup-form" [formGroup]="confirmationForm" (ngSubmit)="handleConfirmation()">
+        <mat-form-field class="input-text" appearance="outline">
+            <mat-label>Confirmation code</mat-label>
+            <input matInput type="text" formControlName="confirmationCode">
+        </mat-form-field>
+        <button 
+            [disabled]="confirmationForm.get('confirmationCode').invalid" 
+            mat-raised-button 
+            color="basic" 
+            type="submit"
+        >
+            Enviar
+        </button>
+    </form>
+</div>

@@ -1,0 +1,33 @@
+<div class="edit-note">
+    <form *ngIf="note" class="note-form" [formGroup]="noteForm" (ngSubmit)="handleSubmit()">
+        <mat-form-field class="input-text" appearance="outline">
+            <mat-label>Title</mat-label>
+            <input matInput type="text" formControlName="title">
+        </mat-form-field>
+        <mat-form-field class="textarea-input" appearance="outline">
+            <mat-label>Content</mat-label>
+            <textarea rows="5" matInput formControlName="content" placeholder="Write your note here..."></textarea>
+        </mat-form-field>
+        <mat-form-field *ngIf="note.attachment" class="input-text" appearance="outline">
+            <mat-label>Attachment</mat-label>
+            <a href="{{note.attachmentURL}}" target="_blank"><input matInput type="text" formControlName="oldAttach" readonly></a>
+        </mat-form-field>
+        <mat-form-field class="file-input" appearance="outline">
+            <mat-label>New Attachment</mat-label>
+            <ngx-mat-file-input accept="image/*" formControlName="attachment" placeholder="Attachment" valuePlaceholder="No file selected"></ngx-mat-file-input>
+            <mat-icon matSuffix>folder</mat-icon>
+            <mat-error *ngIf="noteForm.get('attachment').hasError('maxContentSize')">
+                The total size must not exceed {{noteForm.get('attachment')?.getError('maxContentSize').maxSize | byteFormat}} ({{noteForm.get('attachment')?.getError('maxContentSize').actualSize
+                | byteFormat}}).
+            </mat-error>
+        </mat-form-field>
+        <button 
+            [disabled]="noteForm.get('content').invalid" 
+            mat-raised-button 
+            color="basic" 
+            type="submit"
+        >
+            Save
+        </button>
+    </form>
+</div>

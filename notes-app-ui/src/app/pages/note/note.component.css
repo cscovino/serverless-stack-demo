@@ -1,0 +1,36 @@
+.note-container {
+    margin: 2rem;
+}
+
+.note-container .note-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.textarea-input {
+    width: 50vw;
+}
+
+.file-input {
+    width: 50vw;
+}
+
+.input-text {
+    width: 50vw;
+}
+
+.image-card {
+    object-fit: contain;
+}
+
+.actions-buttons {
+    position: fixed;
+    top: 80vh;
+    left: 80vw;
+}
+
+.edit-button {
+    margin-right: 1em;
+}

@@ -1,0 +1,26 @@
+<div class="notes-container">
+  <h2>Your notes</h2>
+  <mat-card class="note-card" *ngFor="let note of notes">
+    <mat-card-header>
+      <mat-icon mat-card-avatar>library_books</mat-icon>
+      <mat-card-title>
+        <a class="link-to-note" routerLink="/notes/{{note.noteId}}">
+          {{note.title}}
+        </a>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{note.content}}</p>
+    </mat-card-content>
+  </mat-card>
+
+  <button #tooltip="matTooltip" 
+    matTooltip="New note" 
+    matTooltipPosition="above"
+    mat-fab color="basic" 
+    class="add-button"
+    routerLink="/new"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

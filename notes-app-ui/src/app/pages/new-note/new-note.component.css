@@ -1,0 +1,26 @@
+.new-note-container {
+    margin: 2rem;
+}
+
+.new-note-container .new-note-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.textarea-input {
+    width: 50vw;
+}
+
+.file-input {
+    width: 50vw;
+}
+
+.input-text {
+    width: 50vw;
+}
+
+.remove-button {
+    top: 0.45em;
+}

@@ -1,0 +1,23 @@
+.notes-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem;
+}
+
+.add-button {
+    position: fixed;
+    top: 80vh;
+    left: 90vw;
+}
+
+.link-to-note {
+    text-decoration: none;
+    color: black;
+}
+
+.note-card {
+    margin: 1rem;
+    max-width: 50vw;
+}

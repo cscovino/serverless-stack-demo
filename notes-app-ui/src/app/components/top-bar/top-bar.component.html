@@ -1,0 +1,17 @@
+<mat-toolbar>
+  <div class="right-nav">
+    <a id="notesTab" class="home-link" [routerLink]="['/']">
+      <h1>Notes</h1>
+    </a>
+  </div>
+
+  <div class="left-nav">
+    <div *ngIf="!signedIn">
+      <a id="signupTab" mat-button routerLink="/signup">Signup</a>
+      <a id="loginTab" mat-button routerLink="/login">Login</a>
+    </div>
+    <div *ngIf="signedIn">
+      <a id="logoutTab" mat-button (click)="handleLogout()">Logout</a>
+    </div>
+  </div>
+</mat-toolbar>
