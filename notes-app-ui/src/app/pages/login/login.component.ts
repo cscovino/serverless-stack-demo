@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     const result = await this.authService.login(this.loginForm.value.username, this.loginForm.value.password);
     this.dialog.closeAll();
     if(result.success){
-      this.router.navigate([""]);
+      this.router.navigate(["notes"]);
     }
     if(result.error){
       this.dialog.open(MessageDialogComponent, {data:{title:"ERROR", message: result.error.message}});

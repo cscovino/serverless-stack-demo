@@ -8,5 +8,5 @@
 
 .actions {
     margin-top: 0.5rem;
-    justify-content: end;
+    justify-content: flex-end;
 }

@@ -69,13 +69,13 @@ export function playerFactory() {
          useCache: true,
       }),
       RouterModule.forRoot([
-         { path: '', redirectTo: '/notes', pathMatch: 'full' },
          { path: 'login', component: LoginComponent },
          { path: 'signup', component: SignupComponent },
          { path: 'new', component: NewNoteComponent },
          { path: 'notes', component: NotesListComponent },
          { path: 'notes/:id', component: NoteComponent },
          { path: 'edit/:id', component: EditNoteComponent },
+         { path: '', redirectTo: '/notes', pathMatch: 'full' },
          { path: '**', component: NotFoundComponent },
       ])
    ],

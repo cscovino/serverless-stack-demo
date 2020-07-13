@@ -36,13 +36,13 @@ export class NewNoteComponent implements OnInit {
   }
 
   async handleSubmit() {
-    this.dialog.open(LoadingDialogComponent);
+    const load = this.dialog.open(LoadingDialogComponent);
     const result = await this.apiService.createNote({
       title: this.noteForm.value.title,
       content: this.noteForm.value.note,
-      file: ''//this.noteForm.value.attachment.files ? this.noteForm.value.attachment.files[0] : null
+      file: this.noteForm.value.attachment.files ? this.noteForm.value.attachment.files[0] : ''
     });
-    this.dialog.closeAll();
+    load.close();
     if(result.success){
       if(result.successAttach){
         this.dialog.open(MessageDialogComponent, {data:{title:"SUCCESS", message:"Note created successfully."}});

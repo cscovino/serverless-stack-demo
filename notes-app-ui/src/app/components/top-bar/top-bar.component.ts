@@ -23,7 +23,7 @@ export class TopBarComponent implements OnInit {
     this.amplifyService.authStateChange$.subscribe(authState => {
       this.signedIn = authState.state === 'signedIn';
       this.authService.user = authState.user;
-      if(this.signedIn) this.router.navigate(['notes']);
+      //if(this.signedIn) this.router.navigate(['notes']);
     })
   }
 

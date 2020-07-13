@@ -34,9 +34,9 @@ export class SignupComponent implements OnInit {
 
   async handleSubmit() {
     if(this.signupForm.value.password === this.signupForm.value.secondpassword){
-      this.dialog.open(LoadingDialogComponent);
+      const load = this.dialog.open(LoadingDialogComponent);
       const result = await this.authService.signup(this.signupForm.value.username, this.signupForm.value.password);
-      this.dialog.closeAll();
+      load.close();
       if(result.success){
         this.isUserSignUp = result.success;
       } else if(result.error){
@@ -48,12 +48,12 @@ export class SignupComponent implements OnInit {
   }
 
   async handleConfirmation() {
-    this.dialog.open(LoadingDialogComponent);
+    const load = this.dialog.open(LoadingDialogComponent);
     const result = await this.authService.confirmSignup(this.authService.user.username, this.confirmationForm.value.confirmationCode);
-    this.dialog.closeAll();
+    load.close();
     if(result.success){
       this.isUserSignUp = false;
-      this.router.navigate([""])
+      this.router.navigate(["login"])
     } else if(result.error){
       this.dialog.open(MessageDialogComponent, {data:{title:"ERROR", message: result.error.message}});
     }

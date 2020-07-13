@@ -13,6 +13,7 @@ import { MessageDialogComponent } from 'src/app/components/message-dialog/messag
 })
 export class NotesListComponent implements OnInit {
   notes = [];
+  dialogRef = null;
 
   constructor(
     private authService: AuthService, 
@@ -25,14 +26,14 @@ export class NotesListComponent implements OnInit {
     if(this.authService.user === null){
       this.router.navigate(["login"]);
     } else{
-      this.dialog.open(LoadingDialogComponent);
+      this.dialogRef = this.dialog.open(LoadingDialogComponent);
       this.getNotes();
     }
   }
 
   async getNotes() {
     const result = await this.apiService.getNotes();
-    this.dialog.closeAll();
+    this.dialogRef.close();
     if(result.success){
       this.notes = result.success;
     } else if(result.error){
